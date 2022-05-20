@@ -16,7 +16,7 @@ public class CylinderManager : MonoBehaviour
     public List<float> lengthList;
     public List<Color> colorList;
 
-    private List<Cylinder> cylindersToDrop;
+    public List<Cylinder> cylindersToDrop;
     private float _minRange = 1.0f;
     private float _maxRange = 3.0f;
     private float _timeDuration = .5f;
@@ -52,7 +52,6 @@ public class CylinderManager : MonoBehaviour
 
             if((cylinderList[0].transform.position.z > lengthList[0]) && (AlignmentChecker.Instance.IsAligned(cylinderList[0], cylinderList[1])))
             {
-
                 ClearStuff();
                 SpawnManyCylinders(true);
                 UpdatePosition();
@@ -126,6 +125,8 @@ public class CylinderManager : MonoBehaviour
         cylinderList.RemoveAt(0);
         lengthList.RemoveAt(0);
 
+        
+
         // if colorOn in SpawnManyCylinders
         colorList.RemoveAt(0);
     }
@@ -133,17 +134,20 @@ public class CylinderManager : MonoBehaviour
     private void UpdatePosition()
     {
         Cylinder cylinderToMove = cylinderList[1];
-        float distance = lengthList[1];
+        float distance = lengthList[0];
         Vector3 startPosition = cylinderToMove.transform.position;
-        Vector3 endPosition = new Vector3(0, 0, - distance) - startPosition;
+        Vector3 endPosition = new Vector3(0, 0, - distance);
 
         _elapsedTime += Time.deltaTime;
         float percentageComplete = _elapsedTime / _timeDuration;
 
 
-        cylinderList[0].transform.position = endPosition/2;
+        cylinderList[0].transform.position = endPosition;
         // cylinderList[0].transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
 
     }
+
+    
+
 
 }

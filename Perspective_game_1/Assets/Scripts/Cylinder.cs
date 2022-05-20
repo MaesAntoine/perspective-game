@@ -19,9 +19,14 @@ public class Cylinder : MonoBehaviour
     }
 
 
-    public void DropCylinder()
+    public void AddAndDropCylinder(List<Cylinder> dropCylinders)
     {
-        // when cylinder not in use anymore, activate it's gravity
+        // when cylinder not in use anymore, activate its gravity
 
+        Debug.Log("ih");
+        for (int i=0; i< dropCylinders.Count; i++)
+        {
+            dropCylinders[i].gameObject.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 }

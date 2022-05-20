@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LerpMovement : MonoBehaviour
 {
-
+    public static LerpMovement Instance;
 
     private Vector3 endPosition;
     private Vector3 startPosition;
@@ -13,6 +13,12 @@ public class LerpMovement : MonoBehaviour
     private float elapsedTime;
 
     private Cylinder cylinderToMove;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
