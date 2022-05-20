@@ -33,19 +33,16 @@ public class CylinderManager : MonoBehaviour
         cylinderList = new List<Cylinder>();
         lengthList = new List<float>();
         colorList = new List<Color>();
+
+        // pop the cylinder
+        for (int i=0; i < cylinderOnScreen; i++)
+        {
+            SpawnManyCylinders(true);
+        }
     }
 
     private void Update()
     {
-        if (cylinderList.Count < cylinderOnScreen)
-        {
-            if (cylinderList.Count < cylinderOnScreen)
-            {
-                SpawnManyCylinders(true);
-            }
-        }
-
-
         if(GameManager.Instance.isGameOn)
         {
             for (int i = 0; i < cylinderList.Count; i++)
@@ -55,11 +52,11 @@ public class CylinderManager : MonoBehaviour
 
             if((cylinderList[0].transform.position.z > lengthList[0]) && (AlignmentChecker.Instance.IsAligned(cylinderList[0], cylinderList[1])))
             {
-                float lengthValue = lengthList[1];
-                Cylinder toMove = cylinderList[1];
 
                 ClearStuff();
-                UpdatePosition(toMove, lengthValue);
+                SpawnManyCylinders(true);
+                UpdatePosition();
+                
             }
 
 /*            else if ((cylinderList[0].transform.position.z > lengthList[0]) && (!AlignmentChecker.Instance.IsAligned(cylinderList[0], cylinderList[1])))
@@ -113,7 +110,6 @@ public class CylinderManager : MonoBehaviour
         float rand3 = UnityEngine.Random.Range(0.0f, 1.0f);
 
         colorList.Add(new Color(rand1, rand2, rand3));
-        
     }
 
     public void ChangeColors()
@@ -134,8 +130,10 @@ public class CylinderManager : MonoBehaviour
         colorList.RemoveAt(0);
     }
 
-    private void UpdatePosition(Cylinder cylinderToMove, float distance)
+    private void UpdatePosition()
     {
+        Cylinder cylinderToMove = cylinderList[1];
+        float distance = lengthList[1];
         Vector3 startPosition = cylinderToMove.transform.position;
         Vector3 endPosition = new Vector3(0, 0, - distance) - startPosition;
 
